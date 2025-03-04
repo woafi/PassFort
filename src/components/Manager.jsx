@@ -66,6 +66,8 @@ function Manager() {
 
   const handleAdd = async () => {
     if (form.site.trim() === "") return;
+    if (form.username.trim() === "") return;
+    if (form.password.trim() === "") return;
     await postHandling(form) //post 
     toast('Password Saved!', {
       position: "top-right",
