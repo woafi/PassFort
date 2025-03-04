@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+body{
+    color: #ffffff;
+    font-family: "Poppins", serif;
+}
+.password-eye:focus-within{
+    border-color: rgb(34, 197, 94);
+}
+
+
+
+
+@media screen and (max-width: 1024px) {
+    /* utility */
+   .none{
+    display: none;
+   }
+   .popUp{
+    display: inline-block;
+   }
+
+   .website{
+    width: 100%;
+    justify-content: space-between;
+    padding-right: 1rem;
+    cursor: pointer;
+   }
+   
+
+  }
+@media screen and (max-width: 768px) {
+   
+    .noneMob{
+        display: none;
+    }
+   
+  }

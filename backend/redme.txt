@@ -1,0 +1,5 @@
+npm install dotenv --save
+npm install mongodb
+npm i cors
+npm i body-parser
+nodemon .\backend\server.js
