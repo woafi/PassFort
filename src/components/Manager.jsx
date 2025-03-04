@@ -21,7 +21,7 @@ function Manager() {
 
   //get all passwords
   const getPasswords = async () => {
-    let req = await fetch("https://for-hosting-kbp6.onrender.com/")
+    let req = await fetch("https://passfort.onrender.com/")
     let passwords = await req.json()
     setPasswordArray(passwords)
     // console.log(passwords)
@@ -53,7 +53,7 @@ function Manager() {
 
   //Post Request Handling
   const postHandling = async (data) => {
-    let url = await fetch("https://for-hosting-kbp6.onrender.com/", {
+    let url = await fetch("https://passfort.onrender.com/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -90,7 +90,7 @@ function Manager() {
 
   //Delete Request Handling
   const deleteHandling = async (data) => {
-    let url = await fetch("https://for-hosting-kbp6.onrender.com/", {
+    let url = await fetch("https://passfort.onrender.com/", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -130,7 +130,7 @@ function Manager() {
 
   //Put Request Handling
   const updateHandling = async (data) => {
-    let url = await fetch("https://for-hosting-kbp6.onrender.com/", {
+    let url = await fetch("https://passfort.onrender.com/", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
