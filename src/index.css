@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
-body{
+body {
     color: #ffffff;
     font-family: "Poppins", serif;
 }
-.password-eye:focus-within{
+
+.password-eye:focus-within {
     border-color: rgb(34, 197, 94);
 }
 
@@ -12,27 +13,84 @@ body{
 
 
 @media screen and (max-width: 1024px) {
+
     /* utility */
-   .none{
-    display: none;
-   }
-   .popUp{
-    display: inline-block;
-   }
-
-   .website{
-    width: 100%;
-    justify-content: space-between;
-    padding-right: 1rem;
-    cursor: pointer;
-   }
-   
-
-  }
-@media screen and (max-width: 768px) {
-   
-    .noneMob{
+    .none {
         display: none;
     }
-   
-  }
+
+    .popUp {
+        display: inline-block;
+    }
+
+    .website {
+        width: 100%;
+        justify-content: space-between;
+        padding-right: 1rem;
+        cursor: pointer;
+    }
+
+    .username {
+        justify-content: center;
+        /* border: 1px solid #ffffff; */
+        background-color: #1e2939;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        height: 5rem;
+        width: calc(3/5 * 100%);
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+    .password {
+        justify-content: center;
+
+        /* border: 1px solid #ffffff; */
+        background-color: #1e2939;
+        left: 50%;
+        top: 58%;
+        transform: translate(-50%, -50%);
+        z-index: 3;
+        height: 3rem;
+        width: calc(3/5 * 100%);
+    }
+
+    .eyepass {
+        width: 3rem;
+        scale: 0.5;
+    }
+
+    .action{
+        /* border: 1px solid #ffffff; */
+        background-color: #1e2939;
+        left: 50%;
+        top: 67%;
+        z-index: 2;
+        height: 5rem;
+        width: calc(3/5 * 100%);
+        transform: translate(-50%, -50%);
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+    .close{
+        position: absolute;
+        z-index: 5;
+        left: 77%;
+        top: 47%;
+        transform: translate(-50%, -50%);
+    }
+
+
+}
+
+
+
+@media screen and (max-width: 768px) {
+
+    .noneMob {
+        display: none;
+    }
+
+}

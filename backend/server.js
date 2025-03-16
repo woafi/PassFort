@@ -25,19 +25,20 @@ async function main() {
         console.log('Connected successfully to server');
         const db = client.db(dbName);
         const collection = db.collection('Passwords');
-        //get all the password
+
+
+        //Get all the password
         app.get('/', async (req, res) => {
             const findResult = await collection.find({}).toArray();
             res.json(findResult);
         });
+
         //Save a password
         app.post('/', async (req, res) => {
             const password = req.body;
             const findResult = await collection.insertOne(password);
             res.send("Successful");
         });
-
-
 
         // Delete a password
         app.delete('/', async (req, res) => {

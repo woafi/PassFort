@@ -1,11 +1,15 @@
-import React, { useEffect } from 'react'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 
 
 function Manager() {
 
   const eyeDom = useRef()
+  const popupUsernames = useRef([]);
+  const popupPasswords = useRef([]);
+  const popupActions = useRef([]);
+  const close = useRef();
+
 
   const [maskedStates, setMaskedStates] = useState({});
   const [deleteState, setDeleteState] = useState(true)
@@ -15,9 +19,64 @@ function Manager() {
   const [editIndex, setEditIndex] = useState(null); // Track which item is being edited
   const [editForm, setEditForm] = useState({ site: "", username: "", password: "" }); // Store edits
 
+
+
   useEffect(() => {
     getPasswords()
   }, [form, deleteState])
+
+  //Handling focus
+
+  //For closing the popUp
+  const handleClose = () => {
+    if (close.current) {
+      close.current.style.display = 'none';
+    }
+    //For username
+    if (popupUsernames.current) {
+      popupUsernames.current.forEach((el) => {
+        el.style.display = 'none';
+      });
+    }
+    //For password
+    if (popupPasswords.current) {
+      popupPasswords.current.forEach((el) => {
+        el.style.display = 'none';
+      });
+    }
+    //For Actions
+    if (popupActions.current) {
+      popupActions.current.forEach((el) => {
+        el.style.display = 'none';
+      });
+    }
+  }
+
+  //For showing the popUp
+  const handlePop = (index) => {
+    // console.log(popupUsernames.current[index])
+    //For username
+    if (popupUsernames.current[index]) {
+      popupUsernames.current[index].style.display = 'flex';
+      popupUsernames.current[index].style.position = 'absolute';
+      popupUsernames.current[index].focus();
+    }
+    //For password
+    if (popupPasswords.current[index]) {
+      popupPasswords.current[index].style.display = 'flex';
+      popupPasswords.current[index].style.position = 'absolute';
+    }
+    //For Actions
+    if (popupActions.current[index]) {
+      popupActions.current[index].style.display = 'flex';
+      popupActions.current[index].style.position = 'absolute';
+    }
+    //For close
+    if (close.current) {
+      close.current.style.display = 'flex';
+    }
+  };
+
 
   //get all passwords
   const getPasswords = async () => {
@@ -29,7 +88,7 @@ function Manager() {
 
   //handing Show or Hide password
   const handleEye = () => {
-    
+
     setIsShown(!isShown)
     if (isShown) {
       eyeDom.current.src = "/eye.png"
@@ -99,7 +158,7 @@ function Manager() {
       },
       body: JSON.stringify(data),
     })
-    
+
   }
 
   const handleDelete = async (item) => {
@@ -108,6 +167,10 @@ function Manager() {
       await deleteHandling(item)
       setDeleteState(!deleteState)
 
+      if (close.current.style.display == 'flex'){
+        handleClose()
+      }
+      
       toast('Password Deleted!', {
         position: "top-right",
         autoClose: 1000,
@@ -120,11 +183,15 @@ function Manager() {
       });
     }
   }
- 
+
+
   const handleEdit = (index) => {
+    
     setEditIndex(index);
     setEditForm(passwordArray[index]); // Load the current values into editForm
   };
+
+ 
 
   const handleEditChange = (e) => {
     setEditForm({ ...editForm, [e.target.name]: e.target.value });
@@ -139,14 +206,16 @@ function Manager() {
       },
       body: JSON.stringify(data),
     })
-    
+
   }
 
+
+  //For saving the edited password
   const handleSaveEdit = async (index) => {
-    
     await updateHandling(editForm)
     setDeleteState(!deleteState)
     setEditIndex(null); // Exit edit mode
+
     toast('Password Edited!', {
       position: "top-right",
       autoClose: 1000,
@@ -159,9 +228,9 @@ function Manager() {
     });
   };
 
-
-
-  const handleCopy = async (text) => {
+  //Copy to clipboard
+  const handleCopy = async (text, e) => {
+    e.stopPropagation(); // Prevents event bubbling to parent
     await navigator.clipboard.writeText(text);
     toast('Copied to clipboard!', {
       position: "top-right",
@@ -174,11 +243,6 @@ function Manager() {
       theme: "dark",
     });
   }
-
-
-
-
-
 
 
   return (
@@ -195,7 +259,7 @@ function Manager() {
       theme="dark"
     />
       <div>
-        <div className='container mx-auto'>
+        <div className='container mx-auto relative'>
           <div className='logo-box font-bold text-3xl text-center my-10'>
             <span>Pass</span>
             <span className='text-green-500'>Fort</span>
@@ -255,7 +319,7 @@ function Manager() {
           {/* For Showing array list */}
           {passwordArray.length == 0 && <div className='my-2'> Password is not added yet </div>}
 
-          {passwordArray.length != 0 && <div className="passwordContainer rounded-t-xl  border border-gray-600 bg-[#1e2939]  w-full min-h-[19vh] mb-10">
+          {passwordArray.length != 0 && <div className="passwordContainer rounded-t-xl  border border-gray-600 bg-[#1e2939]  w-full min-h-[19vh] mb-10 ">
             <div className='rounded-t-xl header-box flex bg-[#0f141e] py-2'>
               <div className=" website-head font-bold pl-10 w-1/2 h-7">Website Url</div>
               <div className=" font-bold  w-2/5 h-7 none ">Username or Email</div>
@@ -266,24 +330,24 @@ function Manager() {
               <div key={index} className='password-list flex hover:bg-gray-700 py-2 border border-gray-600'>
 
                 {/* Editable Website URL */}
-                <div className="pl-10 website w-1/2 h-6 flex items-center">
+                <div onClick={() => handlePop(index)} className="pl-10 website w-1/2 h-6 flex items-center">
                   {editIndex === index ? (
                     <input
                       name="site"
                       value={editForm.site}
                       onChange={handleEditChange}
-                      className="border border-gray-500 px-2 py-1 w-full  rounded mx-1 bg-gray-400 text-black"
+                      className="border border-gray-500 px-2 py-1 w-full rounded mx-1 bg-gray-400 text-black"
                     />
                   ) : (
                     <>
                       <div className='flex item center'>
                         {item.site}
-                        <lord-icon className="invert cursor-pointer" onClick={() => handleCopy(item.site)}
+                        <lord-icon className="invert cursor-pointer" onClick={(e) => handleCopy(item.site, e)}
                           style={{ width: "25px", height: "25px", paddingTop: "3px", paddingLeft: "3px" }}
                           src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover">
                         </lord-icon>
                       </div>
-                      <div className='popUp hidden invert'>
+                      <div onClick={() => handlePop(index)} className='popUp hidden invert'>
                         <lord-icon className="w-6 pt-1"
                           src="https://cdn.lordicon.com/hmqxevgf.json"
                           trigger="hover">
@@ -294,18 +358,18 @@ function Manager() {
                 </div>
 
                 {/* Editable Username */}
-                <div className='username w-2/5 h-6 flex items-center none '>
+                <div ref={(el) => (popupUsernames.current[index] = el)} className='username w-2/5 h-6 flex items-center none'>
                   {editIndex === index ? (
                     <input
                       name="username"
                       value={editForm.username}
                       onChange={handleEditChange}
-                      className="border border-gray-500 px-2 py-1 w-full rounded mx-1 bg-gray-400 text-black"
+                      className="border border-gray-500 px-2 py-1 w-2/3 rounded mx-1 bg-gray-400 text-black"
                     />
                   ) : (
                     <>
-                      {item.username}
-                      <lord-icon className="invert cursor-pointer" onClick={() => handleCopy(item.username)}
+                      <span>{item.username}</span>
+                      <lord-icon className="invert cursor-pointer" onClick={(e) => handleCopy(item.username, e)}
                         style={{ width: "25px", height: "25px", paddingTop: "3px", paddingLeft: "3px" }}
                         src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover">
                       </lord-icon>
@@ -314,7 +378,7 @@ function Manager() {
                 </div>
 
                 {/* Editable Password */}
-                <div className='password w-2/5 h-6 flex justify-between none'>
+                <div ref={(el) => (popupPasswords.current[index] = el)} className='password w-2/5 h-6 flex justify-between none'>
                   <div className='flex items-center'>
                     {editIndex === index ? (
                       <input
@@ -326,27 +390,27 @@ function Manager() {
                     ) : (
                       <>
                         {maskedStates[index] ? item.password : item.password.replace(/./g, '•')}
-                        <lord-icon className="invert cursor-pointer" onClick={() => handleCopy(item.password)}
+                        <lord-icon className="invert cursor-pointer" onClick={(e) => handleCopy(item.password, e)}
                           style={{ width: "25px", height: "25px", paddingTop: "3px", paddingLeft: "3px" }}
                           src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover">
                         </lord-icon>
                       </>
                     )}
                   </div>
-                  <img onClick={() => togglePassword(index)} className='w-6 invert cursor-pointer'
+                  <img onClick={() => togglePassword(index)} className='eyepass w-6 invert cursor-pointer'
                     src={maskedStates[index] ? "/eye.png" : "/eyecross.png"} alt="toggle password"
                   />
                 </div>
 
                 {/* Actions */}
-                <div className='action text-center none action w-1/5 h-6 flex gap-2 invert justify-center items-center'>
+                <div ref={(el) => (popupActions.current[index] = el)} className='action text-center none action w-1/5 h-6 flex gap-2 justify-center items-center '>
                   {editIndex === index ? (
                     <>
                       <button onClick={() => handleSaveEdit(index)}>
-                        <img className='w-5' src="/save.svg" alt="" />
+                        <img className='w-5 invert' src="/save.svg" alt="" />
                       </button>
-                      <button onClick={() => setEditIndex(null)} className='mt-2'>
-                        <lord-icon
+                      <button onClick={()=> setEditIndex(null)} className='mt-2'>
+                        <lord-icon className="invert"
                           src="https://cdn.lordicon.com/nqtddedc.json"
                           trigger="hover"
                         >
@@ -356,12 +420,12 @@ function Manager() {
                   ) : (
                     <>
                       <button onClick={() => handleEdit(index)}>
-                        <lord-icon src="https://cdn.lordicon.com/gwlusjdu.json" trigger="hover"
+                        <lord-icon className="invert" src="https://cdn.lordicon.com/gwlusjdu.json" trigger="hover"
                           style={{ width: "25px", height: "25px" }}>
                         </lord-icon>
                       </button>
                       <button onClick={() => handleDelete(item)}>
-                        <lord-icon src="https://cdn.lordicon.com/skkahier.json" trigger="hover"
+                        <lord-icon className="invert" src="https://cdn.lordicon.com/skkahier.json" trigger="hover"
                           style={{ width: "25px", height: "25px" }}>
                         </lord-icon>
                       </button>
@@ -372,6 +436,7 @@ function Manager() {
             ))}
           </div>
           }
+          <span ref={close} onClick={handleClose} className='hidden close'><img className='invert' src="/close.svg" alt="" /></span>
         </div>
       </div>
     </>
