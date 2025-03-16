@@ -25,30 +25,29 @@ function Manager() {
     getPasswords()
   }, [form, deleteState])
 
-  //Handling focus
 
   //For closing the popUp
   const handleClose = () => {
-    if (close.current) {
-      close.current.style.display = 'none';
-    }
     //For username
-    if (popupUsernames.current) {
+    if (close.current.style.display == 'flex') {
       popupUsernames.current.forEach((el) => {
         el.style.display = 'none';
       });
     }
     //For password
-    if (popupPasswords.current) {
+    if (close.current.style.display == 'flex') {
       popupPasswords.current.forEach((el) => {
         el.style.display = 'none';
       });
     }
     //For Actions
-    if (popupActions.current) {
+    if (close.current.style.display == 'flex') {
       popupActions.current.forEach((el) => {
         el.style.display = 'none';
       });
+    }
+    if (close.current.style.display == 'flex') {
+      close.current.style.display = 'none';
     }
   }
 
@@ -58,18 +57,15 @@ function Manager() {
     //For username
     if (popupUsernames.current[index]) {
       popupUsernames.current[index].style.display = 'flex';
-      popupUsernames.current[index].style.position = 'absolute';
       popupUsernames.current[index].focus();
     }
     //For password
     if (popupPasswords.current[index]) {
       popupPasswords.current[index].style.display = 'flex';
-      popupPasswords.current[index].style.position = 'absolute';
     }
     //For Actions
     if (popupActions.current[index]) {
       popupActions.current[index].style.display = 'flex';
-      popupActions.current[index].style.position = 'absolute';
     }
     //For close
     if (close.current) {
@@ -78,7 +74,7 @@ function Manager() {
   };
 
 
-  //get all passwords
+  //Get all passwords
   const getPasswords = async () => {
     let req = await fetch("https://passfort.onrender.com/")
     let passwords = await req.json()
@@ -86,7 +82,7 @@ function Manager() {
     // console.log(passwords)
   }
 
-  //handing Show or Hide password
+  //Handing Show or Hide password (single)
   const handleEye = () => {
 
     setIsShown(!isShown)
@@ -97,7 +93,7 @@ function Manager() {
     }
   }
 
-  //handing Show or Hide password
+  //Handing Show or Hide password
   const togglePassword = (index) => {
     setMaskedStates((prev) => ({
       ...prev,
@@ -138,7 +134,8 @@ function Manager() {
       progress: undefined,
       theme: "dark",
     });
-    //for clearing the input
+
+    //For clearing the input
     setForm({ site: "", username: "", password: "" });
   }
 
@@ -161,16 +158,17 @@ function Manager() {
 
   }
 
+  //For deleting the password
   const handleDelete = async (item) => {
     let c = confirm("Are you confirmed?")
     if (c) {
       await deleteHandling(item)
       setDeleteState(!deleteState)
 
-      if (close.current.style.display == 'flex'){
+      if (close.current.style.display == 'flex') {
         handleClose()
       }
-      
+
       toast('Password Deleted!', {
         position: "top-right",
         autoClose: 1000,
@@ -184,14 +182,13 @@ function Manager() {
     }
   }
 
-
+  //For editing the password
   const handleEdit = (index) => {
-    
     setEditIndex(index);
     setEditForm(passwordArray[index]); // Load the current values into editForm
   };
 
- 
+
 
   const handleEditChange = (e) => {
     setEditForm({ ...editForm, [e.target.name]: e.target.value });
@@ -206,7 +203,6 @@ function Manager() {
       },
       body: JSON.stringify(data),
     })
-
   }
 
 
@@ -311,14 +307,12 @@ function Manager() {
               </lord-icon>
               Add
             </button>
-
           </div>
 
 
           <div className='font-bold text-lg mb-2'>My Passwords</div>
           {/* For Showing array list */}
           {passwordArray.length == 0 && <div className='my-2'> Password is not added yet </div>}
-
           {passwordArray.length != 0 && <div className="passwordContainer rounded-t-xl  border border-gray-600 bg-[#1e2939]  w-full min-h-[19vh] mb-10 ">
             <div className='rounded-t-xl header-box flex bg-[#0f141e] py-2'>
               <div className=" website-head font-bold pl-10 w-1/2 h-7">Website Url</div>
@@ -347,7 +341,7 @@ function Manager() {
                           src="https://cdn.lordicon.com/iykgtsbt.json" trigger="hover">
                         </lord-icon>
                       </div>
-                      <div onClick={() => handlePop(index)} className='popUp hidden invert'>
+                      <div className='popUp hidden invert'>
                         <lord-icon className="w-6 pt-1"
                           src="https://cdn.lordicon.com/hmqxevgf.json"
                           trigger="hover">
@@ -409,7 +403,7 @@ function Manager() {
                       <button onClick={() => handleSaveEdit(index)}>
                         <img className='w-5 invert' src="/save.svg" alt="" />
                       </button>
-                      <button onClick={()=> setEditIndex(null)} className='mt-2'>
+                      <button onClick={() => setEditIndex(null)} className='mt-2'>
                         <lord-icon className="invert"
                           src="https://cdn.lordicon.com/nqtddedc.json"
                           trigger="hover"
