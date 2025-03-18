@@ -6,6 +6,7 @@ const { ObjectId } = require('mongodb');
 // require('dotenv').config();
 
 const app = express();
+const PORT = process.env.PORT;
 app.use(cors())
 app.use(bodyParser.json())
 
@@ -83,7 +84,7 @@ async function main() {
 
 
         app.listen(PORT, () => {
-            console.log(`Example app listening on port http://localhost:3000/`);
+            console.log(`Server is running`);
         });
     } catch (err) {
         console.error('Failed to connect to MongoDB', err);
