@@ -3,17 +3,17 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
+// require('dotenv').config();
 
 const app = express();
-const PORT = 3000 || process.env.port
 app.use(cors())
 app.use(bodyParser.json())
 
 
 
 // Connection URL
-const url = 'mongodb+srv://woafi:gP4Dx6e4ZekH3Nf@cluster0.re6ax.mongodb.net/?retryWrites=true&w=majority';
-const client = new MongoClient(url);
+const URL = process.env.MONGODB_URL
+const client = new MongoClient(URL);
 
 // Database Name
 const dbName = 'passfort';

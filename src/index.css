@@ -27,6 +27,14 @@ body {
         display: inline-block;
     }
 
+    .inputbox{
+        display: flex;
+        flex-direction: column;
+    }
+    .full{
+        width: 100%;
+    }
+
     .website {
         width: 100%;
         justify-content: space-between;
@@ -37,8 +45,8 @@ body {
     .username {
         position: absolute;
         justify-content: center;
-        /* border: 1px solid #ffffff; */
-        background-color: #1e2939;
+        border: 2px solid #ffffff;
+        background-color: #0f1724;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
@@ -47,13 +55,14 @@ body {
         width: calc(3/5 * 100%);
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
+        
     }
 
     .password {
         justify-content: center;
         position: absolute;
         /* border: 1px solid #ffffff; */
-        background-color: #1e2939;
+        background-color: #0f1724;
         left: 50%;
         top: 58%;
         transform: translate(-50%, -50%);
@@ -68,8 +77,8 @@ body {
     }
 
     .action{
-        /* border: 1px solid #ffffff; */
-        background-color: #1e2939;
+        border: 2px solid #ffffff;
+        background-color: #0f1724;
         position: absolute;
         left: 50%;
         top: 67%;

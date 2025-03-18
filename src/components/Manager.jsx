@@ -262,7 +262,7 @@ function Manager() {
             <p className='text-center text-base font-normal'>Your Own Password Manager</p>
           </div>
 
-          <div className="input-box w-4/5 mx-auto ">
+          <div className="input-box w-4/5 mx-auto inputbox">
 
             <input
               value={form.site} onChange={handleChange} name="site"
@@ -272,21 +272,21 @@ function Manager() {
               placeholder="Enter website Url..."
             />
 
-
-            <div className="flex">
+ 
+            <div className="flex  inputbox full">
 
               <input
                 value={form.username} onChange={handleChange} name="username"
-                className="border-2 border-gray-300/50 focus:placeholder-transparent  hover:border-green-500 focus:border-green-500 focus:opacity-100 focus:outline-none rounded-xl w-1/2 mr-2 mt-4 px-5 py-2 placeholder-white/75"
+                className="border-2 border-gray-300/50 focus:placeholder-transparent full  hover:border-green-500 focus:border-green-500 focus:opacity-100 focus:outline-none rounded-xl w-1/2 mr-2 mt-4 px-5 py-2 placeholder-white/75"
                 type="text"
                 onKeyDown={handleKeyDownAdd}
                 placeholder="Username or Email"
               />
 
-              <div className="password-eye border-2 border-gray-300/50 focus:placeholder-transparent hover:border-green-500 focus:opacity-100 focus:outline-none rounded-xl w-1/2 mt-4 pl-5 py-2 placeholder-white/75 flex gap-1">
+              <div className="password-eye border-2 border-gray-300/50 focus:placeholder-transparent hover:border-green-500 focus:opacity-100 focus:outline-none rounded-xl w-1/2 mt-4 pl-5 py-2 placeholder-white/75 flex gap-1 full pr-4">
                 <input
                   value={form.password} onChange={handleChange} name="password"
-                  className=" w-5/6 border-gray-300/50 focus:placeholder-transparent focus:opacity-100 focus:outline-none placeholder-white/75"
+                  className=" border-gray-300/50 focus:placeholder-transparent full focus:opacity-100 focus:outline-none placeholder-white/75 w-full"
                   type={isShown ? "password" : "text"}
                   onKeyDown={handleKeyDownAdd}
                   placeholder="Password"

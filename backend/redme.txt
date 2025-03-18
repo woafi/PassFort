@@ -1,5 +1,3 @@
-npm install dotenv --save
-npm install mongodb
-npm i cors
-npm i body-parser
+npm install dotenv
+npm install mongodb body-parser cors express
 nodemon .\backend\server.js
