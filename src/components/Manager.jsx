@@ -313,13 +313,14 @@ function Manager() {
           <div className='font-bold text-lg mb-2'>My Passwords</div>
           {/* For Showing array list */}
           {passwordArray.length == 0 && <div className='my-2'> Password is not added yet </div>}
-          {passwordArray.length != 0 && <div className="passwordContainer rounded-t-xl  border border-gray-600 bg-[#1e2939]  w-full min-h-[19vh] mb-10 ">
+          {passwordArray.length != 0 && <div className=" rounded-t-xl  border border-gray-600 bg-[#1e2939] w-full h-[37.3vh] mb-10 ">
             <div className='rounded-t-xl header-box flex bg-[#0f141e] py-2'>
               <div className=" website-head font-bold pl-10 w-1/2 h-7">Website Url</div>
               <div className=" font-bold  w-2/5 h-7 none ">Username or Email</div>
               <div className=" font-bold  w-2/5 h-7 none">Password</div>
               <div className=" font-bold  text-center none w-1/5 h-7">Actions</div>
             </div>
+            <div className='h-[87%] overflow-y-auto passwordContainer'>
             {passwordArray.map((item, index) => (
               <div key={index} className='password-list flex hover:bg-gray-700 py-2 border border-gray-600'>
 
@@ -428,6 +429,7 @@ function Manager() {
                 </div>
               </div>
             ))}
+          </div>
           </div>
           }
           <span ref={close} onClick={handleClose} className='hidden close'><img className='invert' src="/close.svg" alt="" /></span>
