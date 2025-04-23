@@ -17,7 +17,7 @@ PassFort is a simple and secure password manager built using React, Tailwind Css
 ## Tech Stack
 
 - **Frontend:** React, Tailwind CSS, Vercel
-- **Backend:** Express.js, Node.js, Render
+- **Backend:** Express.js, Node.js, RESTful API, Render
 - **Database:** MongoDB Atlas
 
 ## Design Improvements
