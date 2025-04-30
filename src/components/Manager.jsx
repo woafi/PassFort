@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
+import HeadText from './HeadText'
 
 
 function Manager() {
@@ -105,6 +106,8 @@ function Manager() {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
+
+
 
   //Post Request Handling
   const postHandling = async (data) => {
@@ -256,12 +259,9 @@ function Manager() {
     />
       <div>
         <div className='container mx-auto relative'>
-          <div className='logo-box font-bold text-3xl text-center my-10'>
-            <span>Pass</span>
-            <span className='text-green-500'>Fort</span>
-            <p className='text-center text-base font-normal'>Your Own Password Manager</p>
-          </div>
+          <HeadText />
 
+          {/* input and adding password */}
           <div className="input-box w-4/5 mx-auto inputbox">
 
             <input

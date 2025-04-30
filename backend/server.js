@@ -30,7 +30,12 @@ async function main() {
 
         //Get all the password
         app.get('/', async (req, res) => {
-            const findResult = await collection.find({}).toArray();
+            const email = req.query.email;
+            if (!email) {
+                return res.status(400).send("Email parameter is required");
+            }
+            const findResult = await collection.find({ name: email }).toArray();
+            // console.log(findResult)
             res.json(findResult);
         });
 
@@ -46,13 +51,13 @@ async function main() {
             try {
                 const { _id } = req.body; // Extract _id from request body
                 if (!_id) return res.status(400).send("Missing _id");
-        
+
                 const findResult = await collection.deleteOne({ _id: new ObjectId(_id) });
-        
+
                 if (findResult.deletedCount === 0) {
                     return res.status(404).send("Item not found");
                 }
-        
+
                 res.send("Delete successful");
             } catch (error) {
                 console.error("Error deleting password:", error);
@@ -63,18 +68,24 @@ async function main() {
         //update a password
         app.put('/', async (req, res) => {
             try {
-                const { _id, site, username, password } = req.body; // Extract fields from request body
+                const { _id, name, passwordList } = req.body; // Extract fields from request body
                 if (!_id) return res.status(400).send("Missing _id");
-        
+
                 const updateResult = await collection.updateOne(
                     { _id: new ObjectId(_id) }, // Find by _id
-                    { $set: { site, username, password } } // Update fields
+                    { 
+                        $set: { 
+                            passwordList: passwordList // Update the matched passwordList entry
+                        } 
+                    } // Update fields
                 );
-        
+
+                // console.log(updateResult)
+
                 if (updateResult.matchedCount === 0) {
                     return res.status(404).send("Item not found");
                 }
-        
+
                 res.send("Update successful");
             } catch (error) {
                 console.error("Error updating password:", error);

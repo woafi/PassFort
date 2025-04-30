@@ -1,8 +1,8 @@
 import React from 'react'
-
+import { SignedIn, SignedOut, SignUpButton, SignInButton, UserButton } from '@clerk/clerk-react'
 function Navbar() {
     return (
-        <nav className='bg-[#040a0e] flex justify-between items-center'>
+        <nav className='bg-[#040a0e] flex justify-between items-center py-2'>
             <div className='flex items-center px-5'>
                 <div className='w-18'>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 200">
@@ -23,10 +23,33 @@ function Navbar() {
                 </div>
                 <div className='logo-box font-bold text-3xl'>Pass<span className='text-green-500'>Fort</span></div>
             </div>
-            <ul className='flex gap-2 px-5'>
-                <li className='w-16 h-6.5 text-center hover:font-bold cursor-pointer noneMob'>Home</li>
-                <li className='w-16 h-6.5 text-center hover:font-bold cursor-pointer '>About</li>
-                <li className='w-16 h-6.5 text-center hover:font-bold cursor-pointer noneMob '>Contact</li>
+            <ul className='flex gap-2 px-5 justify-center items-center'>
+                <SignedOut>
+                    <SignInButton>
+                        <button class="relative inline-flex items-center justify-center p-0.5  me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+                            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
+                                Login
+                            </span>
+                        </button>
+                    </SignInButton>
+                    <SignUpButton>
+                        <button className="relative inline-flex items-center justify-center p-0.5  me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+                            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
+                            <img className='w-5 invert' src="/add-user.png" alt="" />
+                            </span>
+                        </button>
+                    </SignUpButton>
+                </SignedOut>
+                <SignedIn>
+                <UserButton appearance={{
+                        elements: {
+                            userButtonAvatarBox: {
+                                width: '2.5rem',
+                                height: '2.5rem'
+                            }
+                        }
+                    }} />
+                </SignedIn>
             </ul>
         </nav>
     )
