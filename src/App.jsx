@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
-import Manager from './components/Manager';
 import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
 import HeadText from './components/HeadText';
 import Home from './components/Home';
