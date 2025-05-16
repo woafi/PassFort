@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
 import HeadText from './components/HeadText';
