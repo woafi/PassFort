@@ -1,11 +1,10 @@
-import React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { useUser } from '@clerk/clerk-react'
 import { ToastContainer, toast } from 'react-toastify';
 
 
 function Display() {
-    const { isSignedIn, user, isLoaded } = useUser();
+    const { isSignedIn, user } = useUser();
     const [passwordArray, setPasswordArray] = useState([]);
 
     const eyeDom = useRef();
