@@ -14,7 +14,6 @@ function AuthWrapper({ children }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoaded) return;
 
     if (isSignedIn) {
       if (window.location.pathname !== '/home') {
