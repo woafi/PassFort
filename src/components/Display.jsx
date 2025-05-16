@@ -226,7 +226,7 @@ function Display() {
 
             </div>
             <div className='container mx-auto relative'>
-                <div className='font-bold text-lg mb-2'>My Passwords</div>
+                <div className='font-bold text-lg mb-2 mx-3'>My Passwords</div>
                 {passwordArray.length == 0 && <div className='my-2'> Password is not added yet </div>}
                 {passwordArray.length != 0 && <div className=" rounded-t-xl  border border-gray-600 bg-[#1e2939] w-full h-[37.3vh] mb-10 ">
                     <div className='rounded-t-xl header-box flex bg-[#0f141e] py-2'>
@@ -235,7 +235,7 @@ function Display() {
                         <div className=" font-bold  w-2/5 h-7 none">Password</div>
                         <div className=" font-bold  text-center none w-1/5 h-7">Actions</div>
                     </div>
-                    <div className='h-[87%] overflow-y-auto passwordContainer'>
+                    <div className='h-[86%] overflow-y-auto passwordContainer'>
                         {passwordArray.map((item, index) => (
                             <div key={index} ref={contentRef} className='password-list flex hover:bg-gray-700 py-2 border border-gray-600'>
 
