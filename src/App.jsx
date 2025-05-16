@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
-import Navbar from './components/Navbar';
 import { useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import { useUser } from '@clerk/clerk-react';
+
+import Navbar from './components/Navbar';
 import HeadText from './components/HeadText';
 import Home from './components/Home';
-import { useUser } from '@clerk/clerk-react';
 import Body from './components/Body';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
 function AuthWrapper({ children }) {
@@ -14,6 +16,9 @@ function AuthWrapper({ children }) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!isLoaded) {
+      return;
+    }
 
     if (isSignedIn) {
       if (window.location.pathname !== '/home') {

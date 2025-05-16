@@ -1,14 +1,14 @@
+require("dotenv").config();
 const express = require('express');
 const cors = require('cors')
-const bodyParser = require('body-parser')
 const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
-// require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT;
+
 app.use(cors())
-app.use(bodyParser.json())
+app.use(express.json());
 
 
 
@@ -22,7 +22,7 @@ const dbName = 'passfort';
 async function main() {
     try {
         // Use connect method to connect to the server
-        await client.connect();
+        // await client.connect();
         console.log('Connected successfully to server');
         const db = client.db(dbName);
         const collection = db.collection('Passwords');
