@@ -28,6 +28,7 @@ function Display() {
         name: '',
         passwordList: [{ site: '', username: '', password: '' }],
     });
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         if (isSignedIn && user?.primaryEmailAddress?.emailAddress) {
@@ -69,7 +70,9 @@ function Display() {
             ...prev,
             passwordList: [{ site: '', username: '', password: '' }],
         }));
+
         setDeleteState((prev) => !prev); // Triggers refresh
+        
         setTimeout(() => {
             contentRef.current?.scrollIntoView({ behavior: "smooth" })
         }, 100) // slight delay to allow tab switch
@@ -159,6 +162,12 @@ function Display() {
     };
 
 
+    //For searching website Url
+    const filteredPasswords = passwordArray.filter((item) =>
+        item.passwordList[0].site.toLowerCase().includes(searchQuery)
+    );
+
+
     return (
         <><ToastContainer
             position="top-right"
@@ -229,14 +238,23 @@ function Display() {
                 <div className='font-bold text-lg mb-2 mx-3'>My Passwords</div>
                 {passwordArray.length == 0 && <div className='my-2'> Password is not added yet </div>}
                 {passwordArray.length != 0 && <div className=" rounded-t-xl  border border-gray-600 bg-[#1e2939] w-full h-[37.3vh] mb-10 ">
-                    <div className='rounded-t-xl header-box flex bg-[#0f141e] py-2'>
-                        <div className=" website-head font-bold pl-10 w-1/2 h-7">Website Url</div>
+                    <div className='rounded-t-xl header-box flex items-center bg-[#0f141e] py-2'>
+                        <div className='website-head font-bold pl-10 w-full lg:w-1/2 h-7 flex items-center  Url whitespace-nowrap '>
+                            <div>Website Url</div>
+                            <input
+                                className='border rounded-lg px-2 ml-4 border-white/50 font-normal w-1/2 lg:w-1/2'
+                                type="text"
+                                placeholder='Search'
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
+                            />
+                        </div>
                         <div className=" font-bold  w-2/5 h-7 none ">Username or Email</div>
                         <div className=" font-bold  w-2/5 h-7 none">Password</div>
                         <div className=" font-bold  text-center none w-1/5 h-7">Actions</div>
                     </div>
                     <div className='h-[86%] overflow-y-auto passwordContainer'>
-                        {passwordArray.map((item, index) => (
+                        {filteredPasswords.map((item, index) => (
                             <div key={index} ref={contentRef} className='password-list flex hover:bg-gray-700 py-2 border border-gray-600'>
 
                                 {/* Editable Website URL */}
