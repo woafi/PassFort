@@ -47,7 +47,7 @@ function Display() {
 
     const getPasswords = async (email) => {
         try {
-            const res = await fetch(`https://pass-fort-v5k8.vercel.app/?email=${encodeURIComponent(email)}`);
+            const res = await fetch(`https://pass-fort-mmmg.vercel.app/?email=${encodeURIComponent(email)}`);
             const data = await res.json();
             setPasswordArray(data);
         } catch (err) {
@@ -59,7 +59,7 @@ function Display() {
         const entry = form.passwordList[0];
         if (!entry.site || !entry.username || !entry.password) return;
 
-        await fetch("https://pass-fort-v5k8.vercel.app/", {
+        await fetch("https://pass-fort-mmmg.vercel.app/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(form),
@@ -120,7 +120,7 @@ function Display() {
 
     const handleDelete = async (item) => {
         if (confirm("Are you sure you want to delete?")) {
-            await fetch("https://pass-fort-v5k8.vercel.app/", {
+            await fetch("https://pass-fort-mmmg.vercel.app/", {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(item),
@@ -145,7 +145,7 @@ function Display() {
     };
 
     const handleSaveEdit = async () => {
-        await fetch("https://pass-fort-v5k8.vercel.app/", {
+        await fetch("https://pass-fort-mmmg.vercel.app/", {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(editForm),
