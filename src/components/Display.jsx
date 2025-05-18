@@ -72,7 +72,7 @@ function Display() {
         }));
 
         setDeleteState((prev) => !prev); // Triggers refresh
-        
+
         setTimeout(() => {
             contentRef.current?.scrollIntoView({ behavior: "smooth" })
         }, 100) // slight delay to allow tab switch
@@ -182,7 +182,7 @@ function Display() {
             theme="dark"
         />
 
-
+            {/* Password Input Section */}
             <div className="input-box w-4/5 mx-auto inputbox">
                 <input
                     value={form.passwordList[0].site}
@@ -230,10 +230,10 @@ function Display() {
                         Add
                     </button>
                 </div>
-
-
-
             </div>
+
+
+            {/* Password Display Section */}
             <div className='container mx-auto relative'>
                 <div className='font-bold text-lg mb-2 mx-3'>My Passwords</div>
                 {passwordArray.length == 0 && <div className='my-2'> Password is not added yet </div>}
